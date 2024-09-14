@@ -57,12 +57,12 @@ jobs:
     needs: build-docker-image
     runs-on: ubuntu-latest
     steps:
-      - name: set application-dev.properties
+      - name: set application-prod.properties
         run: |
-          mkdir -p ~/properties/prod
-          cd ~/properties/prod
-          touch ./application-prod.properties
-          echo "${{ secrets.PROPERTIES }}" > ./application-prod.properties
+          sudo mkdir -p ~/properties/prod
+          sudo cd ~/properties/prod
+          sudo touch ./application-prod.properties
+          sudo echo "${{ secrets.PROPERTIES }}" > ./application-prod.properties
         shell: bash
 
       - name: ssh connect & production
@@ -76,7 +76,7 @@ jobs:
             sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_IMAGE}}
             sudo docker ps -q | xargs -r sudo docker stop
             sudo docker ps -aq | xargs -r sudo docker rm
-            sudo docker run --name ${{secrets.DOCKERHUB_IMAGE}} -d -p 8080:8080 -v ~/properties:/properties -e SPRING_PROFILES_ACTIVE=prod -e SPRING_CONFIG_LOCATION=/properties/application-prod.properties ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_IMAGE}}
+            sudo docker run --name ${{secrets.DOCKERHUB_IMAGE}} -d -p 8080:8080 -v ~/properties:/properties -e SPRING_PROFILES_ACTIVE=prod -e SPRING_CONFIG_LOCATION=/properties/prod/application-prod.properties ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_IMAGE}}
             sudo docker system prune -f
             
             
