@@ -59,10 +59,10 @@ jobs:
     steps:
       - name: set application-dev.properties
         run: |
-          mkdir -p ~/properties/dev
-          cd ~/properties/dev
-          touch ./application-dev.properties
-          echo "${{ secrets.PROPERTIES }}" > ./application-dev.properties
+          mkdir -p ~/properties/prod
+          cd ~/properties/prod
+          touch ./application-prod.properties
+          echo "${{ secrets.PROPERTIES }}" > ./application-prod.properties
         shell: bash
 
       - name: ssh connect & production
