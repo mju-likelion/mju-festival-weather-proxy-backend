@@ -59,10 +59,10 @@ jobs:
     steps:
       - name: set application-prod.properties
         run: |
-          sudo mkdir -p ~/properties/prod
-          sudo cd ~/properties/prod
-          sudo touch ./application-prod.properties
-          sudo echo "${{ secrets.PROPERTIES }}" > ./application-prod.properties
+          mkdir -p ~/properties/prod
+          cd ~/properties/prod
+          touch ./application-prod.properties
+          echo "${{ secrets.PROPERTIES }}" > ./application-prod.properties
         shell: bash
 
       - name: ssh connect & production
