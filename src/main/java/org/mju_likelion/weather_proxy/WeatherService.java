@@ -70,7 +70,7 @@ public class WeatherService {
 
   @Scheduled(fixedRate = 58000)
   public void weatherScheduler() {
-    LocalTime nowTime = LocalTime.now();
+    LocalTime nowTime = LocalTime.now().withSecond(0).withNano(0);
     LocalDate nowDate = LocalDate.now();
     if (scheduleBaseTimes.contains(nowTime)) {
       log.info("Update weather data");
@@ -79,8 +79,6 @@ public class WeatherService {
   }
 
   public void updateWeather(final LocalDate date, final LocalTime time) {
-    System.out.println(date);
-    System.out.println(time);
     String baseDate = formatDate(date);
     String baseTime = formatTime(time);
     String argString = weatherApiArgsProvider.getArgs(baseDate, baseTime);
