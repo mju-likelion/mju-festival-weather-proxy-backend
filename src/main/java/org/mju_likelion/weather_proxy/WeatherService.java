@@ -37,7 +37,7 @@ public class WeatherService {
   private NavigableSet<LocalTime> createScheduleBaseTimes() {
     NavigableSet<LocalTime> times = new TreeSet<>();
     for (int i = 0; i < 24; i++) {
-      times.add(LocalTime.of(i, 30));
+      times.add(LocalTime.of(i, 45));
     }
     return times;
   }
@@ -68,7 +68,7 @@ public class WeatherService {
     return weatherApiResponse;
   }
 
-  @Scheduled(fixedRate = 58000)
+  @Scheduled(fixedRate = 5000)
   public void weatherScheduler() {
     LocalTime nowTime = LocalTime.now().withSecond(0).withNano(0);
     LocalDate nowDate = LocalDate.now();
@@ -80,7 +80,7 @@ public class WeatherService {
 
   public void updateWeather(final LocalDate date, final LocalTime time) {
     String baseDate = formatDate(date);
-    String baseTime = formatTime(time);
+    String baseTime = formatTime(time.minusMinutes(15));
     String argString = weatherApiArgsProvider.getArgs(baseDate, baseTime);
     URI uri = URI.create(weatherApiUrl + argString);
 
