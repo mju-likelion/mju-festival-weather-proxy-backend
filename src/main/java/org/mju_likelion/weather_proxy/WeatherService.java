@@ -68,7 +68,7 @@ public class WeatherService {
     return weatherApiResponse;
   }
 
-  @Scheduled(fixedRate = 5000)
+  @Scheduled(fixedRate = 58000)
   public void weatherScheduler() {
     LocalTime nowTime = LocalTime.now().withSecond(0).withNano(0);
     LocalDate nowDate = LocalDate.now();
